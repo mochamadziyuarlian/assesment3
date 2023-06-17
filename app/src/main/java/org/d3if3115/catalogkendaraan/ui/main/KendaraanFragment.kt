@@ -1,4 +1,4 @@
-package org.d3if3115.mobpro1.ui.main
+package org.d3if3115.catalogkendaraan.ui.main
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -15,8 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if3115.catalogkendaraan.MainActivity
 import org.d3if3115.catalogkendaraan.databinding.KendaraanFragmentBinding
-import org.d3if3115.catalogkendaraan.ui.main.KendaraanAdapter
-import org.d3if3115.mobpro1.network.ApiStatus
+import org.d3if3115.catalogkendaraan.network.ApiStatus
 
 
 class KendaraanFragment : Fragment() {

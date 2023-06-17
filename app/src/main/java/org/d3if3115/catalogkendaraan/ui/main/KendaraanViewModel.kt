@@ -1,4 +1,4 @@
-package org.d3if3115.mobpro1.ui.main
+package org.d3if3115.catalogkendaraan.ui.main
 
 import android.app.Application
 import android.util.Log
@@ -12,9 +12,9 @@ import androidx.work.WorkManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.d3if3115.catalogkendaraan.model.Kendaraan
-import org.d3if3115.mobpro1.network.ApiStatus
-import org.d3if3115.mobpro1.network.KendaraanApi
-import org.d3if3115.mobpro1.network.UpdateWorker
+import org.d3if3115.catalogkendaraan.network.ApiStatus
+import org.d3if3115.catalogkendaraan.network.KendaraanApi
+import org.d3if3115.catalogkendaraan.network.UpdateWorker
 import java.util.concurrent.TimeUnit
 
 class KendaraanViewModel : ViewModel() {

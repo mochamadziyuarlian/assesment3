@@ -1,4 +1,4 @@
-package org.d3if3115.mobpro1.network
+package org.d3if3115.catalogkendaraan.network
 
 import android.Manifest
 import android.app.PendingIntent

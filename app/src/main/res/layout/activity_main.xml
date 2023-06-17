@@ -2,7 +2,7 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
-    android:name="org.d3if3115.mobpro1.ui.main.KendaraanFragment"
+    android:name="org.d3if3115.catalogkendaraan.ui.main.KendaraanFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:viewBindingIgnore="true" />

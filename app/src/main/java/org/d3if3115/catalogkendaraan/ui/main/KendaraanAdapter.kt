@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import org.d3if3115.catalogkendaraan.R
 import org.d3if3115.catalogkendaraan.databinding.ListKendaraanBinding
 import org.d3if3115.catalogkendaraan.model.Kendaraan
-import org.d3if3115.mobpro1.network.KendaraanApi
+import org.d3if3115.catalogkendaraan.network.KendaraanApi
 
 
 class KendaraanAdapter : RecyclerView.Adapter<KendaraanAdapter.ViewHolder>() {
@@ -26,7 +26,7 @@ class KendaraanAdapter : RecyclerView.Adapter<KendaraanAdapter.ViewHolder>() {
             namaTextView.text = kendaraan.merk
             latinTextView.text = kendaraan.asal
             Glide.with(imageView.context)
-                .load(KendaraanApi.getKendaraanUrl(kendaraan.ImageId))
+                .load(KendaraanApi.getKendaraanUrl(kendaraan.imageId))
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(imageView)
 
