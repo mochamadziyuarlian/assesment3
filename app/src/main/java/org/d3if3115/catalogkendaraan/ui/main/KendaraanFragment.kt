@@ -11,7 +11,10 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import org.d3if3115.catalogkendaraan.MainActivity
+import org.d3if3115.catalogkendaraan.databinding.KendaraanFragmentBinding
 import org.d3if3115.catalogkendaraan.ui.main.KendaraanAdapter
 import org.d3if3115.mobpro1.network.ApiStatus
 
@@ -20,16 +23,21 @@ class KendaraanFragment : Fragment() {
     private val viewModel: KendaraanViewModel by lazy {
         ViewModelProvider(this)[KendaraanViewModel::class.java]
     }
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: KendaraanFragmentBinding
     private lateinit var myAdapter: KendaraanAdapter
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        binding = FragmentMainBinding.inflate(layoutInflater, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = KendaraanFragmentBinding.inflate(layoutInflater, container, false)
         myAdapter = KendaraanAdapter()
         with(binding.recyclerView) {
             addItemDecoration(
-                DividerItemDecoration(context,
-                    RecyclerView.VERTICAL))
+                DividerItemDecoration(
+                    context,
+                    RecyclerView.VERTICAL
+                )
+            )
             adapter = myAdapter
             setHasFixedSize(true)
         }
@@ -65,6 +73,7 @@ class KendaraanFragment : Fragment() {
             }
         }
     }
+
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun requestNotificationPermission() {
         if (ActivityCompat.checkSelfPermission(

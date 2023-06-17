@@ -1,83 +1,56 @@
 package org.d3if3115.catalogkendaraan.ui.main
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import org.d3if3115.catalogkendaraan.MainActivity
-import org.d3if3115.mobpro1.network.ApiStatus
-import org.d3if3115.mobpro1.ui.main.KendaraanViewModel
+import com.bumptech.glide.Glide
+import org.d3if3115.catalogkendaraan.R
+import org.d3if3115.catalogkendaraan.databinding.ListKendaraanBinding
+import org.d3if3115.catalogkendaraan.model.Kendaraan
+import org.d3if3115.mobpro1.network.KendaraanApi
 
-class KendaraanFragment : Fragment() {
-    private val viewModel: KendaraanViewModel by lazy {
-        ViewModelProvider(this)[KendaraanViewModel::class.java]
-    }
-    private lateinit var binding: FragmentMainBinding
-    private lateinit var myAdapter: KendaraanAdapter
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        binding = FragmentMainBinding.inflate(layoutInflater, container, false)
-        myAdapter = KendaraanAdapter()
-        with(binding.recyclerView) {
-            addItemDecoration(
-                DividerItemDecoration(context,
-                    RecyclerView.VERTICAL))
-            adapter = myAdapter
-            setHasFixedSize(true)
-        }
-        return binding.root
+
+class KendaraanAdapter : RecyclerView.Adapter<KendaraanAdapter.ViewHolder>() {
+    private val data = mutableListOf<Kendaraan>()
+    fun updateData(newData: List<Kendaraan>) {
+        data.clear()
+        data.addAll(newData)
+        notifyDataSetChanged()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.getData().observe(viewLifecycleOwner) {
-            myAdapter.updateData(it)
-        }
-        viewModel.getStatus().observe(viewLifecycleOwner) {
-            updateProgress(it)
-        }
-        viewModel.scheduleUpdater(requireActivity().application)
-    }
 
-    private fun updateProgress(status: ApiStatus) {
-        when (status) {
-            ApiStatus.LOADING -> {
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            ApiStatus.SUCCESS -> {
-                binding.progressBar.visibility = View.GONE
+    class ViewHolder(
+        private val binding: ListKendaraanBinding ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(kendaraan: Kendaraan) = with(binding) {
+            namaTextView.text = kendaraan.merk
+            latinTextView.text = kendaraan.asal
+            Glide.with(imageView.context)
+                .load(KendaraanApi.getKendaraanUrl(kendaraan.ImageId))
+                .error(R.drawable.ic_baseline_broken_image_24)
+                .into(imageView)
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    requestNotificationPermission()
-                }
-            }
-            ApiStatus.FAILED -> {
-                binding.progressBar.visibility = View.GONE
-                binding.networkError.visibility = View.VISIBLE
+
+
+            root.setOnClickListener {
+                val message = root.context.getString(R.string.message, kendaraan.merk)
+                Toast.makeText(root.context, message, Toast.LENGTH_LONG).show()
             }
         }
     }
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun requestNotificationPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                MainActivity.PERMISSION_REQUEST_CODE
-            )
-        }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ListKendaraanBinding.inflate(inflater, parent, false)
+        return ViewHolder(binding)
+    }
+
+    override fun getItemCount(): Int {
+        return data.size
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(data[position])
     }
 
 }
