@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Hello World</string>
+    <string name="m_ziyu_arlian_n6706213115_nd3rpla_4502">M.Ziyu Arlian\n6706213115\nd3rpla-4502</string>
+    <string name="switch_layout">Ubah tampilan</string>
+    <string name="koneksi_error">koneksi error</string>
+    <string name="message">%1$s diklik!</string>
+
+    <string name="channel_name">Updater</string>
+    <string name="channel_desc">Update data kendaraan otomatis</string>
+    <string name="notif_title">Ada kendaraan baru!</string>
+    <string name="notif_text">Cek sekarang </string>
+</resources>
